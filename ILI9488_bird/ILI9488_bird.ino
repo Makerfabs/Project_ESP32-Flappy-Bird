@@ -5,8 +5,8 @@
 
 // instead of using TFT.width() and TFT.height() set constant values
 // (we can change the size of the game easily that way)
-#define TFTW 320 // screen width
-#define TFTH 480 // screen height
+#define TFTW 320  // screen width
+#define TFTH 480  // screen height
 #define TFTW2 160 // half screen width
 #define TFTH2 240 // half screen height
 // game constant
@@ -15,13 +15,22 @@
 #define JUMP_FORCE 2.15
 #define SKIP_TICKS 20.0 // 1000 / 50fps
 #define MAX_FRAMESKIP 5
+/*
 // bird size
 #define BIRDW 8  // bird width
 #define BIRDH 8  // bird height
 #define BIRDW2 4 // half width
 #define BIRDH2 4 // half height
+*/
+
+// mybird size
+#define BIRDW 16 // bird width
+#define BIRDH 16 // bird height
+#define BIRDW2 8 // half width
+#define BIRDH2 8 // half height
+
 // game_pipe size
-#define PIPEW 36     // game_pipe width
+#define PIPEW 36      // game_pipe width
 #define GAPHEIGHT 100 // game_pipe gap height
 // floor size
 #define FLOORH 40 // floor height (from bottom of the screen)
@@ -65,15 +74,33 @@ const unsigned int GRASSCOL2 = TFT.color565(156, 239, 88);
 #define C3 TFT_WHITE
 #define C4 TFT_RED
 #define C5 TFT.color565(251, 216, 114)
+
 static unsigned int birdcol[] =
-    {C0, C0, C1, C1, C1, C1, C1, C0,
-     C0, C1, C2, C2, C2, C1, C3, C1,
-     C0, C2, C2, C2, C2, C1, C3, C1,
-     C1, C1, C1, C2, C2, C3, C1, C1,
-     C1, C2, C2, C2, C2, C2, C4, C4,
-     C1, C2, C2, C2, C1, C5, C4, C0,
-     C0, C1, C2, C1, C5, C5, C5, C0,
-     C0, C0, C1, C5, C5, C5, C0, C0};
+    {C0, C0, C0, C0, C1, C1, C1, C1, C1, C1, C1, C1, C1, C1, C0, C0,
+     C0, C0, C0, C0, C1, C1, C1, C1, C1, C1, C1, C1, C1, C1, C0, C0,
+
+     C0, C0, C1, C1, C2, C2, C2, C2, C2, C2, C1, C1, C3, C3, C1, C1,
+     C0, C0, C1, C1, C2, C2, C2, C2, C2, C2, C1, C1, C3, C3, C1, C1,
+
+     C0, C0, C2, C2, C2, C2, C2, C2, C2, C2, C1, C1, C3, C3, C1, C1,
+     C0, C0, C2, C2, C2, C2, C2, C2, C2, C2, C1, C1, C3, C3, C1, C1,
+
+     C1, C1, C1, C1, C1, C1, C2, C2, C2, C2, C3, C3, C1, C1, C1, C1,
+     C1, C1, C1, C1, C1, C1, C2, C2, C2, C2, C3, C3, C1, C1, C1, C1,
+
+     C1, C1, C2, C2, C2, C2, C2, C2, C2, C2, C2, C2, C4, C4, C4, C4,
+     C1, C1, C2, C2, C2, C2, C2, C2, C2, C2, C2, C2, C4, C4, C4, C4,
+
+     C1, C1, C2, C2, C2, C2, C2, C2, C1, C1, C5, C5, C4, C4, C0, C0,
+     C1, C1, C2, C2, C2, C2, C2, C2, C1, C1, C5, C5, C4, C4, C0, C0,
+
+     C0, C0, C1, C1, C2, C2, C1, C1, C5, C5, C5, C5, C5, C5, C0, C0,
+     C0, C0, C1, C1, C2, C2, C1, C1, C5, C5, C5, C5, C5, C5, C0, C0,
+
+     C0, C0, C0, C0, C1, C1, C5, C5, C5, C5, C5, C5, C0, C0, C0, C0,
+     C0, C0, C0, C0, C1, C1, C5, C5, C5, C5, C5, C5, C0, C0, C0, C0
+
+};
 
 // bird structure
 static struct BIRD
@@ -274,7 +301,6 @@ void game_loop()
         TFT.drawFastVLine(grassx % TFTW, GAMEH + 1, GRASSH - 1, GRASSCOL);
         TFT.drawFastVLine((grassx + 64) % TFTW, GAMEH + 1, GRASSH - 1, GRASSCOL2);
 
-
         // ===============
         // collision
         // ===============
@@ -304,7 +330,6 @@ void game_loop()
             // increase score since we successfully passed a game_pipe
             score++;
         }
-
 
         // update score
         // ---------------
